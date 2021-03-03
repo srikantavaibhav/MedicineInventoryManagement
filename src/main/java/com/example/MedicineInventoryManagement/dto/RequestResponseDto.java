@@ -8,6 +8,8 @@ import lombok.Setter;
 public class RequestResponseDto {
     private Long requestId;
     private Long medicineId;
+    private Long categoryId;
+    private Long medicineQuantity;
     private String status;
     private String reason;
 }

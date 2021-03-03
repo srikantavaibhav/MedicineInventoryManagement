@@ -21,4 +21,5 @@ public class MedicineResponseDto {
     private Long totalQuantity;
     private Long costPerUnit;
     private Boolean isInStock;
+    private String categoryName;
 }

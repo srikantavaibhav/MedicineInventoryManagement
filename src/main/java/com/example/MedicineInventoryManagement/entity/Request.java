@@ -19,6 +19,8 @@ public class Request {
     @GeneratedValue(generator = "id_seq", strategy = GenerationType.AUTO)
     private Long requestId;
     private Long medicineId;
+    private Long categoryId;
+    private Long medicineQuantity;
     private String status;
     private String reason;
 }

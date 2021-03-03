@@ -7,10 +7,16 @@ import java.util.List;
 
 public interface MedicineService {
     MedicineResponseDto createMedicine(MedicineRequestDto medicineRequestDto);
-    MedicineResponseDto getMedicineById(Long medicineId);
-    MedicineResponseDto updateMedicineById(Long medicineId, MedicineRequestDto medicineRequestDto);
-//    MedicineResponseDto deleteMedicineById(Long medicineId);
-//    List<MedicineResponseDto> getMedicineByCategory(Long categoryId);
+//    MedicineResponseDto getMedicineById(Long medicineId);
+//    MedicineResponseDto updateMedicineById(Long medicineId, MedicineRequestDto medicineRequestDto);
+    MedicineResponseDto deleteMedicineByName(String medicineName);
+    List<MedicineResponseDto> getMedicineByCategoryName(String categoryName);
+
+    MedicineResponseDto getMedicineByName(String medicineName);
+
+    MedicineResponseDto updateMedicineByName(String medicineName, MedicineRequestDto medicineRequestDto);
+
+    List<MedicineResponseDto> getMedicineList();
 
     //String getMedicineLocation(Long categoryId);
 //    MedicineResponseDto updateAvailability(Long medicineId, MedicineRequestDto medicineRequestDto);
