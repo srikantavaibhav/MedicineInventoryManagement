@@ -83,24 +83,30 @@ public class MedicineController {
         return medicineService.getMedicineList();
     }
 
-    //GET - /medicine/getOutOfStockMedicineList
-    @CrossOrigin
-    @GetMapping("/getOutOfStockMedicineList")
-    public List<MedicineResponseDto> getOutOfStockMedicineList(){
-        return medicineService.getOutOfStockMedicineList();
-    }
+//    //GET - /medicine/getOutOfStockMedicineList
+//    @CrossOrigin
+//    @GetMapping("/getOutOfStockMedicineList")
+//    public List<MedicineResponseDto> getOutOfStockMedicineList(){
+//        return medicineService.getOutOfStockMedicineList();
+//    }
 
     //GET - /medicine/getExpiredMedicineList
+//    @CrossOrigin
+//    @GetMapping("/getExpiredMedicineList")
+//    public List<MedicineResponseDto> getExpiredMedicineList(){
+//        List<MedicineResponseDto> medicineResponseDtoList = new ArrayList<>();
+//       try{
+//           medicineResponseDtoList=medicineService.getExpiredMedicineList();
+//       }catch(Exception e){
+//           System.out.println(e);
+//       };
+//       return medicineResponseDtoList;
+//    }
+
     @CrossOrigin
-    @GetMapping("/getExpiredMedicineList")
-    public List<MedicineResponseDto> getExpiredMedicineList(){
-        List<MedicineResponseDto> medicineResponseDtoList = new ArrayList<>();
-       try{
-           medicineResponseDtoList=medicineService.getExpiredMedicineList();
-       }catch(Exception e){
-           System.out.println(e);
-       };
-       return medicineResponseDtoList;
+    @GetMapping("/getMedicineToOrder")
+    public List<MedicineResponseDto> getMedicineToOrder(){
+        return medicineService.getMedicineToOrder();
     }
 
 //    //GET - /medicine/getOutOfStock_Or_ExpiredMedicineList

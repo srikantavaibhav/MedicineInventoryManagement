@@ -1,14 +1,17 @@
 package com.example.MedicineInventoryManagement.repository;
 
 import com.example.MedicineInventoryManagement.entity.Medicine;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface MedicineRepository extends CrudRepository<Medicine,Long> {
+@Repository
+public interface MedicineRepository extends JpaRepository<Medicine,Long> {
 
 //    @Query("SELECT m FROM Medicine m WHERE m.category.id=:categoryId")
 //    List<Medicine> getMedicineListByCategoryIdParam(@Param("categoryId") Long categoryId);
@@ -16,4 +19,8 @@ public interface MedicineRepository extends CrudRepository<Medicine,Long> {
     List<Medicine> findByCategoryId(Long categoryId);
 
     Optional<Medicine> findByMedicineName(String medicineName);
+
+    String queryForMedicineToOrder="SELECT * FROM medicine m WHERE m.expiry_date < CURRENT_DATE OR m.is_in_stock=false OR m.total_quantity < 5";
+    @Query(value = queryForMedicineToOrder, nativeQuery = true)
+    List<Medicine> getMedicineToOrder();
 }

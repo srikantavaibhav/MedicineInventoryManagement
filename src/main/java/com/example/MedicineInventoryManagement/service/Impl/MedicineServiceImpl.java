@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.*;
 
-@Service
+@Service(value = "MedicineServiceImpl")
 public class MedicineServiceImpl implements MedicineService {
 
     @Autowired
@@ -187,40 +188,52 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineResponseDtoList;
     }
 
-    @Override
-    public List<MedicineResponseDto> getOutOfStockMedicineList(){
-        List<MedicineResponseDto> medicineResponseDtoList = getMedicineList();
-        List<MedicineResponseDto> outOfStockMedicineResponseDtoList = new ArrayList<>();
-        for(MedicineResponseDto medicineResponseDto: medicineResponseDtoList)
-        {
-            if(medicineResponseDto.getIsInStock()==false) outOfStockMedicineResponseDtoList.add(medicineResponseDto);
-        }
-        return outOfStockMedicineResponseDtoList;
-
-    }
-
-    @Override
-    public List<MedicineResponseDto> getExpiredMedicineList() throws Exception{
-        List<MedicineResponseDto> medicineResponseDtoList = getMedicineList();
-        List<MedicineResponseDto> expiredMedicineList = new ArrayList<>();
-
-        for(MedicineResponseDto medicineResponseDto: medicineResponseDtoList)
-        {
-            String sExp = medicineResponseDto.getExpiryDate().toString().substring(0,10);
-            Date exp = new SimpleDateFormat("yyyy-MM-dd").parse(sExp);
-
-            String sToday = java.time.LocalDate.now().toString().substring(0,10);
-            Date today = new SimpleDateFormat("yyyy-MM-dd").parse(sToday);
-            if(today.getTime()>exp.getTime())
-            {
-                expiredMedicineList.add(medicineResponseDto);
-            }
-
-        }
-        return expiredMedicineList;
-    }
-
 //    @Override
+//    public List<MedicineResponseDto> getOutOfStockMedicineList(){
+//        List<MedicineResponseDto> medicineResponseDtoList = getMedicineList();
+//        List<MedicineResponseDto> outOfStockMedicineResponseDtoList = new ArrayList<>();
+//        for(MedicineResponseDto medicineResponseDto: medicineResponseDtoList)
+//        {
+//            if(medicineResponseDto.getIsInStock()==false) outOfStockMedicineResponseDtoList.add(medicineResponseDto);
+//        }
+//        return outOfStockMedicineResponseDtoList;
+//
+//    }
+//
+//    @Override
+//    public List<MedicineResponseDto> getExpiredMedicineList() throws Exception{
+//        List<MedicineResponseDto> medicineResponseDtoList = getMedicineList();
+//        List<MedicineResponseDto> expiredMedicineList = new ArrayList<>();
+//
+//        for(MedicineResponseDto medicineResponseDto: medicineResponseDtoList)
+//        {
+//            String sExp = medicineResponseDto.getExpiryDate().toString().substring(0,10);
+//            Date exp = new SimpleDateFormat("yyyy-MM-dd").parse(sExp);
+//
+//            String sToday = java.time.LocalDate.now().toString().substring(0,10);
+//            Date today = new SimpleDateFormat("yyyy-MM-dd").parse(sToday);
+//            if(today.getTime()>exp.getTime())
+//            {
+//                expiredMedicineList.add(medicineResponseDto);
+//            }
+//
+//        }
+//        return expiredMedicineList;
+//    }
+
+    @Override
+    public List<MedicineResponseDto> getMedicineToOrder() {
+        List<Medicine> medicineListToOrder = medicineRepository.getMedicineToOrder();
+        List<MedicineResponseDto> medicineResponseDtoList = new ArrayList<>();
+        for(Medicine medicine : medicineListToOrder){
+            MedicineResponseDto responseDto = new MedicineResponseDto();
+            BeanUtils.copyProperties(medicine,responseDto);
+            medicineResponseDtoList.add(responseDto);
+        }
+        return medicineResponseDtoList;
+    }
+
+    //    @Override
 //    public List<MedicineResponseDto> getOutOfStock_Or_ExpiredMedicineList() {
 //        HashSet<MedicineResponseDto> medicineResponseDtoHashSet = new HashSet<>();
 //
