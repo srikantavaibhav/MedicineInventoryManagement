@@ -37,4 +37,11 @@ public class RequestController {
         return requestService.updateRequest(requestId, requestRequestDto);
     }
 
+    //DELETE - /request/deleteRequest/{requestId}
+    @CrossOrigin
+    @DeleteMapping("/deleteRequest/{requestId}")
+    public RequestResponseDto deleteRequest(@PathVariable("requestId") Long requestId){
+        return requestService.deleteRequest(requestId);
+    }
+
 }

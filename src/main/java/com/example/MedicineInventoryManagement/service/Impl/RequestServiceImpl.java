@@ -61,5 +61,17 @@ public class RequestServiceImpl implements RequestService {
         return null;
     }
 
+    @Override
+    public RequestResponseDto deleteRequest(Long requestId){
+        Optional<Request> requestOptionalFromDb = requestRepository.findById(requestId);
+        if(requestOptionalFromDb.isPresent())
+        {
+            RequestResponseDto requestResponseDto = new RequestResponseDto();
+            BeanUtils.copyProperties(requestOptionalFromDb.get(), requestResponseDto);
+            requestRepository.deleteById(requestId);
+            return requestResponseDto;
+        }
+        return null;
+    }
 
 }

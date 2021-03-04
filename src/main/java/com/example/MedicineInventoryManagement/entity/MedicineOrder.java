@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class Order {
+public class MedicineOrder {
 
     @Id
     @GenericGenerator(name = "id_seq", strategy = "increment")

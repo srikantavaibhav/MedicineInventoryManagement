@@ -18,6 +18,12 @@ public interface MedicineService {
 
     List<MedicineResponseDto> getMedicineList();
 
+    List<MedicineResponseDto> getOutOfStockMedicineList();
+
+    List<MedicineResponseDto> getExpiredMedicineList() throws Exception;
+
+    //List<MedicineResponseDto> getOutOfStock_Or_ExpiredMedicineList();
+
     //String getMedicineLocation(Long categoryId);
 //    MedicineResponseDto updateAvailability(Long medicineId, MedicineRequestDto medicineRequestDto);
 }

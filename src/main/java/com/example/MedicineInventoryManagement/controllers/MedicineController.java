@@ -6,6 +6,8 @@ import com.example.MedicineInventoryManagement.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -74,10 +76,37 @@ public class MedicineController {
         return medicineService.getMedicineByCategoryName(categoryName);
     }
 
-    //GET - /medicine//getMedicineList
+    //GET - /medicine/getMedicineList
     @CrossOrigin
     @GetMapping("/getMedicineList")
     public List<MedicineResponseDto> getMedicineList(){
         return medicineService.getMedicineList();
     }
+
+    //GET - /medicine/getOutOfStockMedicineList
+    @CrossOrigin
+    @GetMapping("/getOutOfStockMedicineList")
+    public List<MedicineResponseDto> getOutOfStockMedicineList(){
+        return medicineService.getOutOfStockMedicineList();
+    }
+
+    //GET - /medicine/getExpiredMedicineList
+    @CrossOrigin
+    @GetMapping("/getExpiredMedicineList")
+    public List<MedicineResponseDto> getExpiredMedicineList(){
+        List<MedicineResponseDto> medicineResponseDtoList = new ArrayList<>();
+       try{
+           medicineResponseDtoList=medicineService.getExpiredMedicineList();
+       }catch(Exception e){
+           System.out.println(e);
+       };
+       return medicineResponseDtoList;
+    }
+
+//    //GET - /medicine/getOutOfStock_Or_ExpiredMedicineList
+//    @CrossOrigin
+//    @GetMapping("/getOutOfStock_Or_ExpiredMedicineList")
+//    public List<MedicineResponseDto> getOutOfStock_Or_ExpiredMedicineList(){
+//        return medicineService.getOutOfStock_Or_ExpiredMedicineList();
+//    }
 }
