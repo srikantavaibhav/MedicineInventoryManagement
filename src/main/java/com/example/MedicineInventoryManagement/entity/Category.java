@@ -18,7 +18,8 @@ public class Category {
     @Id
     @GenericGenerator(name = "id_seq", strategy = "increment")
     @GeneratedValue(generator = "id_seq", strategy = GenerationType.AUTO)
-    private Long categoryId;
+    private Integer categoryId;
     private String categoryName;
     private String location;
+
 }

@@ -18,10 +18,10 @@ public class MedicineOrder {
     @Id
     @GenericGenerator(name = "id_seq", strategy = "increment")
     @GeneratedValue(generator = "id_seq", strategy = GenerationType.AUTO)
-    private Long orderId;
-    private Long medicineId;
-    private Long medicineQuantity;
+    private Integer orderId;
+    private Integer medicineId;
+    private Integer medicineQuantity;
     private Long totalAmount;
     private Date orderDate;
-    private String orderStatus;
+
 }

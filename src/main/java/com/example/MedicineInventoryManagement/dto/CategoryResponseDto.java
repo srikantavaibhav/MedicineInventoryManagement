@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoryResponseDto {
-    private Long categoryId;
+    private Integer categoryId;
     private String categoryName;
     private String location;
+    private Integer numberOfMedicines;
 }

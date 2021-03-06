@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderResponseDto deleteOrderById(Long orderId){
+    public OrderResponseDto deleteOrderById(Integer orderId){
         Optional<MedicineOrder> orderOptionalFromDb = orderRepository.findById(orderId);
         if(orderOptionalFromDb.isPresent())
         {

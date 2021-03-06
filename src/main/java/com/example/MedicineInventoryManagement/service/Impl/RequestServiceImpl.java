@@ -47,7 +47,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestResponseDto updateRequest(Long requestId, RequestRequestDto requestRequestDto){
+    public RequestResponseDto updateRequest(Integer requestId, RequestRequestDto requestRequestDto){
         Optional<Request> requestOptionalFromDb = requestRepository.findById(requestId);
         if(requestOptionalFromDb.isPresent())
         {
@@ -62,7 +62,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestResponseDto deleteRequest(Long requestId){
+    public RequestResponseDto deleteRequest(Integer requestId){
         Optional<Request> requestOptionalFromDb = requestRepository.findById(requestId);
         if(requestOptionalFromDb.isPresent())
         {

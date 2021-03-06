@@ -8,6 +8,6 @@ import java.util.List;
 public interface OrderService {
     OrderResponseDto createOrder(OrderRequestDto orderRequestDto);
     List<OrderResponseDto> getOrderList();
-    OrderResponseDto deleteOrderById(Long orderId);
+    OrderResponseDto deleteOrderById(Integer orderId);
 
 }

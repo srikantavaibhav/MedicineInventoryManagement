@@ -5,114 +5,64 @@ import com.example.MedicineInventoryManagement.dto.MedicineResponseDto;
 import com.example.MedicineInventoryManagement.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
 @RequestMapping("/medicine")
+@CrossOrigin
 public class MedicineController {
 
     @Autowired
     private MedicineService medicineService;
 
     //POST - /medicine/createMedicine
-    @CrossOrigin
+//    @CrossOrigin
     @PostMapping("/createMedicine")
     public MedicineResponseDto createMedicine(@RequestBody MedicineRequestDto medicineRequestDto){
         return medicineService.createMedicine(medicineRequestDto);
     }
-//
-//    //GET - /medicine/{medicineId}
-//    @GetMapping("/{medicineId}")
-//    public MedicineResponseDto getMedicineById(@PathVariable("medicineId") Long medicineId){
-//        return medicineService.getMedicineById(medicineId);
-//    }
-//
-//    //PUT - /medicine/{medicineId}
-//    @PutMapping("/{medicineId}")
-//    public MedicineResponseDto updateMedicineById(@PathVariable("medicineId") Long medicineId, @RequestBody MedicineRequestDto medicineRequestDto){
-//        return medicineService.updateMedicineById(medicineId, medicineRequestDto);
-//    }
 
-//    //DELETE - /medicine/{medicineId}
-//    @DeleteMapping("/{medicineId}")
-//    public MedicineResponseDto deleteMedicineById(@PathVariable("medicineId") Long medicineId){
-//        return medicineService.deleteMedicineById(medicineId);
-//    }
-
-//    //GET - /medicine/category/{categoryId}
-//    @GetMapping("/category/{categoryId}")
-//    public List<MedicineResponseDto> getMedicineListByCategory(@RequestParam("categoryId") Long categoryId){
-//        return medicineService.getMedicineByCategory(categoryId);
-//    }
-
-    //GET - /medicine/getMedicine
-    @CrossOrigin
-    @GetMapping("/getMedicine")
+    //GET - /medicine/viewMedicine
+  //  @CrossOrigin
+    @GetMapping("/viewMedicine")
     public MedicineResponseDto getMedicineByName(@RequestParam("medicineName") String medicineName){
         return medicineService.getMedicineByName(medicineName);
     }
 
     //PUT - /medicine/updateMedicine
-    @CrossOrigin
-    @PutMapping("/updateMedicine")
-    public MedicineResponseDto updateMedicineByName(@RequestParam("medicineName") String medicineName, @RequestBody MedicineRequestDto medicineRequestDto){
-        return medicineService.updateMedicineByName(medicineName, medicineRequestDto);
+  //  @CrossOrigin
+    @PutMapping("/updateMedicine/{medicineId}")
+    public MedicineResponseDto updateMedicineById(@PathVariable("medicineId") Integer medicineId, @RequestBody MedicineRequestDto medicineRequestDto){
+        return medicineService.updateMedicineById(medicineId, medicineRequestDto);
     }
 
     //DELETE - /medicine/deleteMedicine
-    @CrossOrigin
-    @DeleteMapping("/deleteMedicine")
-    public MedicineResponseDto deleteMedicineByName(@RequestParam("medicineName") String medicineName){
-        return medicineService.deleteMedicineByName(medicineName);
+   // @CrossOrigin
+    @DeleteMapping("/deleteMedicine/{medicineId}")
+    public MedicineResponseDto deleteMedicineById(@PathVariable("medicineId") Integer medicineId){
+        return medicineService.deleteMedicineById(medicineId);
     }
 
-    //GET - /medicine/getMedicineListByCategory
-    @CrossOrigin
-    @GetMapping("/getMedicineListByCategory")
+    //GET - /medicine/viewMedicineListByCategory
+   // @CrossOrigin
+    @GetMapping("/viewMedicineListByCategory")
     public List<MedicineResponseDto> getMedicineListByCategoryName(@RequestParam("categoryName") String categoryName){
         return medicineService.getMedicineByCategoryName(categoryName);
     }
 
-    //GET - /medicine/getMedicineList
-    @CrossOrigin
-    @GetMapping("/getMedicineList")
+    //GET - /medicine/viewMedicineList
+  //  @CrossOrigin
+    @GetMapping("/viewMedicineList")
     public List<MedicineResponseDto> getMedicineList(){
         return medicineService.getMedicineList();
     }
 
-//    //GET - /medicine/getOutOfStockMedicineList
-//    @CrossOrigin
-//    @GetMapping("/getOutOfStockMedicineList")
-//    public List<MedicineResponseDto> getOutOfStockMedicineList(){
-//        return medicineService.getOutOfStockMedicineList();
-//    }
-
-    //GET - /medicine/getExpiredMedicineList
-//    @CrossOrigin
-//    @GetMapping("/getExpiredMedicineList")
-//    public List<MedicineResponseDto> getExpiredMedicineList(){
-//        List<MedicineResponseDto> medicineResponseDtoList = new ArrayList<>();
-//       try{
-//           medicineResponseDtoList=medicineService.getExpiredMedicineList();
-//       }catch(Exception e){
-//           System.out.println(e);
-//       };
-//       return medicineResponseDtoList;
-//    }
-
-    @CrossOrigin
-    @GetMapping("/getMedicineToOrder")
+    //GET - /medicine/viewMedicineToOrder
+   // @CrossOrigin
+    @GetMapping("/viewMedicineToOrder")
     public List<MedicineResponseDto> getMedicineToOrder(){
         return medicineService.getMedicineToOrder();
     }
 
-//    //GET - /medicine/getOutOfStock_Or_ExpiredMedicineList
-//    @CrossOrigin
-//    @GetMapping("/getOutOfStock_Or_ExpiredMedicineList")
-//    public List<MedicineResponseDto> getOutOfStock_Or_ExpiredMedicineList(){
-//        return medicineService.getOutOfStock_Or_ExpiredMedicineList();
-//    }
+
 }

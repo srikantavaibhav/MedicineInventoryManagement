@@ -8,10 +8,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class OrderResponseDto {
-    private Long orderId;
-    private Long medicineId;
-    private Long medicineQuantity;
+    private Integer orderId;
+    private Integer medicineId;
+    private Integer medicineQuantity;
     private Long totalAmount;
     private Date orderDate;
-    private String orderStatus;
+
 }

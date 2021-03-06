@@ -11,12 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MedicineRepository extends JpaRepository<Medicine,Long> {
+public interface MedicineRepository extends JpaRepository<Medicine,Integer> {
 
-//    @Query("SELECT m FROM Medicine m WHERE m.category.id=:categoryId")
-//    List<Medicine> getMedicineListByCategoryIdParam(@Param("categoryId") Long categoryId);
-
-    List<Medicine> findByCategoryId(Long categoryId);
+    List<Medicine> findByCategoryId(Integer categoryId);
 
     Optional<Medicine> findByMedicineName(String medicineName);
 

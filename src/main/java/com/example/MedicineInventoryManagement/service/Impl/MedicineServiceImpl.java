@@ -7,16 +7,11 @@ import com.example.MedicineInventoryManagement.entity.Medicine;
 import com.example.MedicineInventoryManagement.repository.CategoryRepository;
 import com.example.MedicineInventoryManagement.repository.MedicineRepository;
 import com.example.MedicineInventoryManagement.service.MedicineService;
-import lombok.Setter;
-import org.apache.commons.collections.ListUtils;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.*;
 
 @Service(value = "MedicineServiceImpl")
@@ -43,6 +38,7 @@ public class MedicineServiceImpl implements MedicineService {
             medicine.setIsInStock(true);
         }
 
+
         Medicine savedMedicine = medicineRepository.save(medicine);
 
         MedicineResponseDto medicineResponseDto = new MedicineResponseDto();
@@ -52,62 +48,13 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineResponseDto;
     }
 
-//    @Override
-//    public MedicineResponseDto getMedicineById(Long medicineId) {
-//        Optional<Medicine> medicineOptional = medicineRepository.findById(medicineId);
-//        if (medicineOptional.isPresent()) {
-//            MedicineResponseDto medicineResponseDto = new MedicineResponseDto();
-//            BeanUtils.copyProperties(medicineOptional.get(), medicineResponseDto);
-//            return medicineResponseDto;
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public MedicineResponseDto updateMedicineById(Long medicineId, MedicineRequestDto medicineRequestDto) {
-//
-//        if(medicineRequestDto.getTotalQuantity() == 0 && medicineRequestDto.getIsInStock() == true)
-//        {
-//            medicineRequestDto.setIsInStock(false);
-//        }
-//        if(medicineRequestDto.getTotalQuantity() > 0 && medicineRequestDto.getIsInStock() == false)
-//        {
-//            medicineRequestDto.setIsInStock(true);
-//        }
-//
-//
-//        Optional<Medicine> medicineOptional = medicineRepository.findById(medicineId);
-//        if (medicineOptional.isPresent()) {
-//            Medicine medicineFromDb = medicineOptional.get();
-//            BeanUtils.copyProperties(medicineRequestDto, medicineFromDb);
-//
-//            Medicine savedMedicine = medicineRepository.save(medicineFromDb);
-//            MedicineResponseDto medicineResponseDto = new MedicineResponseDto();
-//            BeanUtils.copyProperties(savedMedicine, medicineResponseDto);
-//            return medicineResponseDto;
-//        }
-//        return null;
-//    }
-
-//    @Override
-//    public MedicineResponseDto deleteMedicineById(Long medicineId){
-//        Optional<Medicine> medicineOptional = medicineRepository.findById(medicineId);
-//        if(medicineOptional.isPresent())
-//        {
-//            MedicineResponseDto medicineResponseDto = new MedicineResponseDto();
-//            BeanUtils.copyProperties(medicineOptional.get(), medicineResponseDto);
-//            medicineRepository.deleteById(medicineId);
-//            return medicineResponseDto;
-//        }
-//        return null;
-//    }
 
     @Override
     public List<MedicineResponseDto> getMedicineByCategoryName(String categoryName){
         Optional<Category> categoryOptional=categoryRepository.findCategoryIdByCategoryName(categoryName);
         if(categoryOptional.isPresent()) {
 
-            Long categoryId = categoryOptional.get().getCategoryId();
+            Integer categoryId = categoryOptional.get().getCategoryId();
             List<Medicine> medicineList = medicineRepository.findByCategoryId(categoryId);
             List<MedicineResponseDto> medicineResponseDtoList = new ArrayList<>();
             for (Medicine medicine : medicineList) {
@@ -136,9 +83,10 @@ public class MedicineServiceImpl implements MedicineService {
         return null;
     }
 
+
     @Override
-    public MedicineResponseDto updateMedicineByName(String medicineName, MedicineRequestDto medicineRequestDto){
-        Optional<Medicine> medicineOptionalFromDb=medicineRepository.findByMedicineName(medicineName);
+    public MedicineResponseDto updateMedicineById(Integer medicineId, MedicineRequestDto medicineRequestDto){
+        Optional<Medicine> medicineOptionalFromDb=medicineRepository.findById(medicineId);
         if(medicineOptionalFromDb.isPresent()) {
 
 
@@ -161,9 +109,10 @@ public class MedicineServiceImpl implements MedicineService {
         return null;
     }
 
+
     @Override
-    public MedicineResponseDto deleteMedicineByName(String  medicineName){
-        Optional<Medicine> medicineOptional = medicineRepository.findByMedicineName(medicineName);
+    public MedicineResponseDto deleteMedicineById(Integer medicineId){
+        Optional<Medicine> medicineOptional = medicineRepository.findById(medicineId);
         if(medicineOptional.isPresent())
         {
             MedicineResponseDto medicineResponseDto = new MedicineResponseDto();
@@ -174,6 +123,8 @@ public class MedicineServiceImpl implements MedicineService {
         }
         return null;
     }
+
+
     @Override
     public List<MedicineResponseDto> getMedicineList(){
         List<Medicine> medicineList = (List<Medicine>) medicineRepository.findAll();
@@ -188,38 +139,6 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineResponseDtoList;
     }
 
-//    @Override
-//    public List<MedicineResponseDto> getOutOfStockMedicineList(){
-//        List<MedicineResponseDto> medicineResponseDtoList = getMedicineList();
-//        List<MedicineResponseDto> outOfStockMedicineResponseDtoList = new ArrayList<>();
-//        for(MedicineResponseDto medicineResponseDto: medicineResponseDtoList)
-//        {
-//            if(medicineResponseDto.getIsInStock()==false) outOfStockMedicineResponseDtoList.add(medicineResponseDto);
-//        }
-//        return outOfStockMedicineResponseDtoList;
-//
-//    }
-//
-//    @Override
-//    public List<MedicineResponseDto> getExpiredMedicineList() throws Exception{
-//        List<MedicineResponseDto> medicineResponseDtoList = getMedicineList();
-//        List<MedicineResponseDto> expiredMedicineList = new ArrayList<>();
-//
-//        for(MedicineResponseDto medicineResponseDto: medicineResponseDtoList)
-//        {
-//            String sExp = medicineResponseDto.getExpiryDate().toString().substring(0,10);
-//            Date exp = new SimpleDateFormat("yyyy-MM-dd").parse(sExp);
-//
-//            String sToday = java.time.LocalDate.now().toString().substring(0,10);
-//            Date today = new SimpleDateFormat("yyyy-MM-dd").parse(sToday);
-//            if(today.getTime()>exp.getTime())
-//            {
-//                expiredMedicineList.add(medicineResponseDto);
-//            }
-//
-//        }
-//        return expiredMedicineList;
-//    }
 
     @Override
     public List<MedicineResponseDto> getMedicineToOrder() {
@@ -228,58 +147,10 @@ public class MedicineServiceImpl implements MedicineService {
         for(Medicine medicine : medicineListToOrder){
             MedicineResponseDto responseDto = new MedicineResponseDto();
             BeanUtils.copyProperties(medicine,responseDto);
+            responseDto.setCategoryName(categoryRepository.findById(responseDto.getCategoryId()).get().getCategoryName());
             medicineResponseDtoList.add(responseDto);
         }
         return medicineResponseDtoList;
     }
-
-    //    @Override
-//    public List<MedicineResponseDto> getOutOfStock_Or_ExpiredMedicineList() {
-//        HashSet<MedicineResponseDto> medicineResponseDtoHashSet = new HashSet<>();
-//
-//        List<MedicineResponseDto> outOfStockMedicineList = getOutOfStockMedicineList();
-//        for(MedicineResponseDto outOfStockMedicine: outOfStockMedicineList)
-//        {
-//            medicineResponseDtoHashSet.add(outOfStockMedicine);
-//        }
-//
-//        List<MedicineResponseDto> expiredMedicineList = new ArrayList<>();
-//        try
-//        {
-//            expiredMedicineList = getExpiredMedicineList();
-//            for(MedicineResponseDto expiredMedicine: expiredMedicineList)
-//            {
-//                medicineResponseDtoHashSet.add(expiredMedicine);
-//            }
-//        }
-//        catch(Exception e)
-//        {
-//            System.out.println(e);
-//        }
-//
-//        //return new ArrayList<>(medicineResponseDtoHashSet);
-//        return ListUtils.intersection(outOfStockMedicineList, expiredMedicineList);
-//
-//    }
-
-//    @Override
-//    public MedicineResponseDto updateAvailability(Long medicineId, MedicineRequestDto medicineRequestDto){
-//
-//        MedicineResponseDto medicineResponseDto = getMedicineById(medicineId);
-//        if(medicineResponseDto.getTotalQuantity() == 0 && medicineResponseDto.getIsInStock() == true)
-//        {
-//            medicineResponseDto.setIsInStock(false);
-//        }
-//        if(medicineResponseDto.getTotalQuantity() > 0 && medicineResponseDto.getIsInStock() == false)
-//        {
-//            medicineResponseDto.setIsInStock(true);
-//        }
-//
-//        Medicine medicine = new Medicine();
-//        BeanUtils.copyProperties(medicineResponseDto, medicine);
-//        medicineRepository.save(medicine);
-//        return medicineResponseDto;
-//    }
-
 
 }

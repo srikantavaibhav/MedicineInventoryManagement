@@ -1,25 +1,30 @@
 package com.example.MedicineInventoryManagement.dto;
 
+import com.example.MedicineInventoryManagement.entity.Category;
+import com.example.MedicineInventoryManagement.repository.CategoryRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
 @Getter
 @Setter
 public class MedicineResponseDto {
-    private Long medicineId;
+    private Integer medicineId;
     private String medicineName;
-    private Long categoryId;
+    private Integer categoryId;
     private String manufacturer;
     private String formula;
     private Date mfdDate;
     private Date expiryDate;
     private String dosage;
-    private Long quantity;
+    private Short quantity;
     private String unit;
-    private Long totalQuantity;
-    private Long costPerUnit;
+    private Integer totalQuantity;
+    private Integer costPerUnit;
     private Boolean isInStock;
     private String categoryName;
+
 }

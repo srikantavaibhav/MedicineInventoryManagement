@@ -23,9 +23,9 @@ public class RequestController {
         return requestService.createRequest(requestRequestDto);
     }
 
-    //GET - /request/getRequestList
+    //GET - /request/viewRequestList
     @CrossOrigin
-    @GetMapping("/getRequestList")
+    @GetMapping("/viewRequestList")
     public List<RequestResponseDto> getRequestList(){
         return requestService.getRequestList();
     }
@@ -33,14 +33,14 @@ public class RequestController {
     //PUT - /request/updateRequest/{requestId}
     @CrossOrigin
     @PutMapping("/updateRequest/{requestId}")
-    public RequestResponseDto updateRequest(@PathVariable("requestId") Long requestId, @RequestBody RequestRequestDto requestRequestDto){
+    public RequestResponseDto updateRequest(@PathVariable("requestId") Integer requestId, @RequestBody RequestRequestDto requestRequestDto){
         return requestService.updateRequest(requestId, requestRequestDto);
     }
 
     //DELETE - /request/deleteRequest/{requestId}
     @CrossOrigin
     @DeleteMapping("/deleteRequest/{requestId}")
-    public RequestResponseDto deleteRequest(@PathVariable("requestId") Long requestId){
+    public RequestResponseDto deleteRequest(@PathVariable("requestId") Integer requestId){
         return requestService.deleteRequest(requestId);
     }
 

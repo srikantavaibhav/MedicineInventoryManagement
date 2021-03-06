@@ -22,17 +22,18 @@ public class OrderController {
         return orderService.createOrder(orderRequestDto);
     }
 
-    //GET - /order/getOrderList
+    //GET - /order/viewOrderList
     @CrossOrigin
-    @GetMapping("/getOrderList")
+    @GetMapping("/viewOrderList")
     public List<OrderResponseDto> getOrderList(){
         return orderService.getOrderList();
     }
 
     //DELETE - /order/deleteOrderById
     @CrossOrigin
-    @DeleteMapping("/deleteOrderById")
-    public OrderResponseDto deleteOrderById(Long orderId){
+    @DeleteMapping("/deleteOrderById/{orderId}")
+    public OrderResponseDto deleteOrderById(@PathVariable("orderId") Integer orderId){
         return orderService.deleteOrderById(orderId);
     }
+
 }
