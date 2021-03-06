@@ -32,8 +32,5 @@ public class Medicine {
     private Integer costPerUnit;
     private Boolean isInStock;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JsonBackReference
-//    private Category category;
 
 }

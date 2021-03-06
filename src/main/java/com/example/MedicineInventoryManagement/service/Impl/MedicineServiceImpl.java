@@ -87,16 +87,16 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public MedicineResponseDto updateMedicineById(Integer medicineId, MedicineRequestDto medicineRequestDto){
         Optional<Medicine> medicineOptionalFromDb=medicineRepository.findById(medicineId);
-        if(medicineOptionalFromDb.isPresent()) {
-
-
-            if (medicineRequestDto.getTotalQuantity() == 0 && medicineRequestDto.getIsInStock() == true) {
+        if(medicineOptionalFromDb.isPresent())
+        {
+            if (medicineRequestDto.getTotalQuantity() == 0 && medicineRequestDto.getIsInStock() == true)
+            {
                 medicineRequestDto.setIsInStock(false);
             }
-            if (medicineRequestDto.getTotalQuantity() > 0 && medicineRequestDto.getIsInStock() == false) {
+            if (medicineRequestDto.getTotalQuantity() > 0 && medicineRequestDto.getIsInStock() == false)
+            {
                 medicineRequestDto.setIsInStock(true);
             }
-
 
             BeanUtils.copyProperties(medicineRequestDto, medicineOptionalFromDb.get());
 

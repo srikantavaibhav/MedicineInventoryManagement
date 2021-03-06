@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class Request {
+public class Request { // Request of necessary medicines is sent to Admin by Employee
 
     @Id
     @GenericGenerator(name = "id_seq", strategy = "increment")
@@ -22,4 +22,5 @@ public class Request {
     private Integer categoryId;
     private Integer medicineQuantity;
     private String reason;
+
 }

@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class Category {
+public class Category { // Therapeutic class of medicines
 
     @Id
     @GenericGenerator(name = "id_seq", strategy = "increment")

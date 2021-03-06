@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class MedicineOrder {
+public class MedicineOrder { // Order of requested medicines is placed by Admin
 
     @Id
     @GenericGenerator(name = "id_seq", strategy = "increment")
